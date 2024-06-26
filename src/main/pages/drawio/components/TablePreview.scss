@@ -1,0 +1,24 @@
+section.drawio {
+    article.table-preview {
+        div.table-container {
+            display: flex;
+            justify-content: left;
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            text-align: left;
+            padding: 10px;
+            border-right: 1px solid whitesmoke;
+        }
+
+        th:last-child,
+        td:last-child {
+            border-right: none;
+        }
+    }
+}

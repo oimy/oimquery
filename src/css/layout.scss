@@ -1,0 +1,50 @@
+@media only screen and (min-width: 1366px) {
+    section.container {
+        width: 1366px !important;
+    }
+}
+
+section.container {
+    width: 100vw;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+div.columns {
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+div.column {
+    height: 100%;
+
+    @for $denominator from 2 through 20 {
+        @for $numerator from 1 through $denominator - 1 {
+            &.has-#{$numerator}-#{$denominator} {
+                width: $numerator / $denominator * 100%;
+            }
+        }
+    }
+
+    &.half {
+        width: 50%;
+    }
+
+    &.one-third {
+        width: 33.33%;
+    }
+
+    &.two-third {
+        width: 66.67%;
+    }
+
+    &.two-fifth {
+        width: 40%;
+    }
+
+    &.three-fifth {
+        width: 60%;
+    }
+}
