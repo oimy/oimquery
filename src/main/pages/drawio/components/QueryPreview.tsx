@@ -22,7 +22,9 @@ export default function QueryPreview({
     return (
         <article className="box query-preview">
             <p className="title">Query Preview</p>
-            <pre>{query}</pre>
+            <div className="pre-container">
+                <pre>{query}</pre>
+            </div>
         </article>
     );
 }

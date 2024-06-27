@@ -3,6 +3,7 @@ section.drawio {
         div.table-container {
             display: flex;
             justify-content: left;
+            overflow-x: auto;
         }
 
         table {
