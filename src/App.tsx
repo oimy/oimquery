@@ -1,3 +1,6 @@
+import hljs from "highlight.js/lib/core";
+import sql from "highlight.js/lib/languages/sql";
+import "highlight.js/styles/github.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ToastContainer, Zoom } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -7,6 +10,8 @@ import "./css/object.scss";
 import "./css/shape.scss";
 import "./css/text.scss";
 import Drawio from "./main/pages/drawio/Drawio";
+
+hljs.registerLanguage("sql", sql);
 
 function App() {
     return (
@@ -20,6 +25,7 @@ function App() {
                 </BrowserRouter>
             </main>
             <ToastContainer
+                style={{ width: "350px" }}
                 position="top-right"
                 autoClose={3000}
                 hideProgressBar={true}

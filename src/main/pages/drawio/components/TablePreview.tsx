@@ -1,28 +1,33 @@
+import Box from "../../../components/Box";
 import { Table } from "../../../models/table";
 import "./TablePreview.scss";
 
 export default function TablePreview({ table }: { table: Table | undefined }) {
     return (
-        <article className="box table-preview">
+        <Box className="table-preview">
             <p className="title">Table Preview</p>
             {table && (
                 <div className="table-container">
                     <table>
                         <thead>
-                            {table.columns.map((column) => (
-                                <th>{column.name}</th>
-                            ))}
+                            <tr>
+                                <th className="label">Name</th>
+                                {table.columns.map((column) => (
+                                    <th key={column.name}>{column.name}</th>
+                                ))}
+                            </tr>
                         </thead>
                         <tbody>
                             <tr>
+                                <td className="label">Type</td>
                                 {table.columns.map((column) => (
-                                    <td>{column.dataType}</td>
+                                    <td key={column.name}>{column.dataType}</td>
                                 ))}
                             </tr>
                         </tbody>
                     </table>
                 </div>
             )}
-        </article>
+        </Box>
     );
 }

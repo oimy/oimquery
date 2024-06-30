@@ -4,16 +4,39 @@ section.drawio {
             display: flex;
             justify-content: left;
             overflow-x: auto;
-        }
 
-        pre {
-            font-family: "NanumSquare Neo", -apple-system, BlinkMacSystemFont,
-                "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
-                "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-            font-size: 0.9em;
-            line-height: 1.5em;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
+            &:hover {
+                cursor: pointer;
+                background-color: snow;
+            }
+
+            &:active {
+                background-color: whitesmoke;
+            }
+
+            pre {
+                margin: 0;
+            }
+
+            pre code {
+                line-height: 1.5em;
+                font-size: 1em;
+                font-family: "Ubuntu Mono";
+                background-color: transparent;
+
+                span.hljs-keyword {
+                    font-weight: bold;
+                }
+
+                span.hljs-type {
+                    font-weight: bold;
+                    color: darkslateblue;
+                }
+
+                span.hljs-string {
+                    color: seagreen;
+                }
+            }
         }
     }
 }

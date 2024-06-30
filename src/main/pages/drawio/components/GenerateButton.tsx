@@ -1,29 +1,41 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { toast } from "react-toastify";
+import Modal from "../../../components/Modal";
 import { Table } from "../../../models/table";
 import Failure from "../../../tools/drawio/Failure";
 import ColumnConverter from "../../../tools/drawio/converters/element/ColumnConverter";
 import TableNameConverter from "../../../tools/drawio/converters/element/TableNameConverter";
 import SimpleTableElementParser from "../../../tools/drawio/parsers/SimpleTableElementParser";
-import "./Generator.scss";
+import { readClipboardTextOrBlank } from "../../../utils/clipboard";
+import { DrawioOption, DrawioOptionContext, saveDrawioOption } from "../DrawioOptionContext";
+import "./GenerateButton.scss";
 import Tooltip from "./Tooltip";
+import GenerateOptionEditModal from "./modals/GenerateOptionEditModal";
 
 const TABLE_ELEMENT_PARSER = new SimpleTableElementParser();
 const TABLE_NAME_CONVERTER = new TableNameConverter();
 const COLUMN_CONVERTER = new ColumnConverter();
 
-export default function Generator({ onGenerate }: { onGenerate: (table: Table) => void }) {
+export default function GenerateButton({
+    setOption,
+    onGenerate,
+    onFail,
+}: {
+    setOption: (option: DrawioOption) => void;
+    onGenerate: (table: Table) => void;
+    onFail: () => void;
+}) {
+    const option: DrawioOption = useContext(DrawioOptionContext);
+
     function handleFailures(failures: Failure[]) {
-        failures.forEach((failure) => {
-            console.log(failure.message);
-        });
         failures.forEach((failure) => {
             toast(failure.message, { type: "error" });
         });
+        onFail();
     }
 
     async function handleClickGenerateButton() {
-        const tableElementText: string = await navigator.clipboard.readText();
+        const tableElementText: string = await readClipboardTextOrBlank();
         const tableElementParseResult = TABLE_ELEMENT_PARSER.parse(tableElementText);
         if (!tableElementParseResult.isSuccess) {
             return handleFailures(tableElementParseResult.failures);
@@ -59,8 +71,7 @@ export default function Generator({ onGenerate }: { onGenerate: (table: Table) =
         if (!isShowTooltip) {
             setIsShowTooltip(true);
         }
-        navigator.clipboard
-            .readText()
+        readClipboardTextOrBlank()
             .then((text) => {
                 const decodedText = decodeURIComponent(text);
                 if (decodedText.startsWith("<mxGraphModel>")) {
@@ -95,8 +106,10 @@ export default function Generator({ onGenerate }: { onGenerate: (table: Table) =
         setMousePosition({ x: e.clientX, y: e.clientY });
     }
 
+    const [modal, setModal] = useState<"edit-option" | "">("");
+
     return (
-        <article className="box graph-input">
+        <article className="box generate-button">
             <div className="columns">
                 <div className="column has-7-8">
                     <button
@@ -106,21 +119,33 @@ export default function Generator({ onGenerate }: { onGenerate: (table: Table) =
                         onMouseLeave={handleMouseLeave}
                         onMouseMove={handleMouseMove}
                     >
-                        GENERATE
+                        {option.isCopyOnGenerate ? "GENERATE & COPY" : "GENERATE"}
                     </button>
                 </div>
                 <div className="column has-1-8">
-                    <button className="option">
+                    <button className="option" onClick={() => setModal("edit-option")}>
                         <i className="fa-solid fa-gear" />
                     </button>
                 </div>
             </div>
-            <Tooltip
-                text={clipboardText}
-                clientX={mousePosition.x}
-                clientY={mousePosition.y}
-                isShow={isShowTooltip}
-            />
+            {option.isShowClipboardHint && clipboardText && (
+                <Tooltip
+                    text={clipboardText}
+                    clientX={mousePosition.x}
+                    clientY={mousePosition.y}
+                    isShow={isShowTooltip}
+                />
+            )}
+            {modal === "edit-option" && (
+                <Modal onClose={() => setModal("")}>
+                    <GenerateOptionEditModal
+                        onChange={(option: DrawioOption) => {
+                            setOption(option);
+                            saveDrawioOption(option);
+                        }}
+                    />
+                </Modal>
+            )}
         </article>
     );
 }

@@ -1,0 +1,35 @@
+section.drawio {
+    div.generate-result {
+        &.show {
+            animation: fadein 0.5s;
+            animation-fill-mode: forwards;
+        }
+
+        &.hide {
+            animation: fadeout 0.5s;
+            animation-fill-mode: forwards;
+        }
+
+        @keyframes fadein {
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+                display: block;
+            }
+        }
+
+        @keyframes fadeout {
+            0% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0;
+                display: none;
+            }
+        }
+    }
+}

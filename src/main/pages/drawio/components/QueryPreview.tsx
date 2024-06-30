@@ -1,32 +1,48 @@
+import hljs from "highlight.js/lib/core";
+import { useContext, useEffect } from "react";
+import { toast } from "react-toastify";
+import Box from "../../../components/Box";
 import { Table } from "../../../models/table";
+import { BLANK } from "../../../tools/contants";
 import MySqlFormatter from "../../../tools/query/formatters/MySqlFormatter";
+import { safelyWriteToClipboard } from "../../../utils/clipboard";
+import { DrawioOption, DrawioOptionContext } from "../DrawioOptionContext";
 import "./QueryPreview.scss";
 
 const MYSQL_FORMATTER = new MySqlFormatter();
 
-export default function QueryPreview({
-    table,
-    isCopy,
-}: {
-    table: Table | undefined;
-    isCopy: boolean;
-}) {
-    let query = "";
-    if (!table) {
-        query = "";
-    } else {
-        query = MYSQL_FORMATTER.format(table);
-        if (isCopy) {
-            navigator.clipboard.writeText(query);
-        }
+export default function QueryPreview({ table }: { table: Table | undefined }) {
+    const option: DrawioOption = useContext(DrawioOptionContext);
+
+    const query: string = table ? MYSQL_FORMATTER.format(table) : BLANK;
+    if (option.isCopyOnGenerate && query !== BLANK) {
+        safelyWriteToClipboard(query);
     }
 
+    useEffect(() => {
+        if (!query) {
+            return;
+        }
+
+        hljs.highlightAll();
+    }, [query]);
+
     return (
-        <article className="box query-preview">
+        <Box className="query-preview">
             <p className="title">Query Preview</p>
-            <div className="pre-container">
-                <pre>{query}</pre>
+            <div
+                className="pre-container"
+                onClick={() => {
+                    if (table && query) {
+                        safelyWriteToClipboard(query);
+                        toast(`copied query '${table.name}'`, { type: "info" });
+                    }
+                }}
+            >
+                <pre>
+                    <code className="language-sql">{query}</code>
+                </pre>
             </div>
-        </article>
+        </Box>
     );
 }

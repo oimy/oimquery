@@ -1,15 +1,16 @@
+import Box from "../../../components/Box";
 import { Table } from "../../../models/table";
 import "./QueryStat.scss";
 
 export default function QueryStat({ table }: { table: Table | undefined }) {
     return (
-        <article className="box query-stat">
+        <Box className="query-stat">
             <p className="title">Query Stat</p>
             {table && (
                 <table>
                     <tbody>
                         <tr>
-                            <th>Columns Count</th>
+                            <th>Columns</th>
                             <td>{table.columns.length}</td>
                         </tr>
                         <tr>
@@ -17,7 +18,7 @@ export default function QueryStat({ table }: { table: Table | undefined }) {
                             <td>{table.columnKeyOption.primaryKeyColumnName}</td>
                         </tr>
                         <tr>
-                            <th>Unique Keys Count</th>
+                            <th>Unique Keys</th>
                             <td>
                                 {
                                     Object.keys(
@@ -27,7 +28,7 @@ export default function QueryStat({ table }: { table: Table | undefined }) {
                             </td>
                         </tr>
                         <tr>
-                            <th>Index Keys Count</th>
+                            <th>Index Keys</th>
                             <td>
                                 {
                                     Object.keys(table.columnKeyOption.indexKeyIndexAndColumnNameMap)
@@ -38,6 +39,6 @@ export default function QueryStat({ table }: { table: Table | undefined }) {
                     </tbody>
                 </table>
             )}
-        </article>
+        </Box>
     );
 }

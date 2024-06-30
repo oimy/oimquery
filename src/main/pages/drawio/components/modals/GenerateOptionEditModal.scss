@@ -1,0 +1,27 @@
+article.generate-option-edit-modal {
+    width: 600px;
+    height: 500px;
+
+    .title {
+        text-align: center;
+        margin: 30px;
+        font-size: 1em;
+    }
+
+    .options {
+        .column {
+            text-align: center;
+        }
+
+        button {
+            width: calc(100% - 40px);
+            font-size: 0.9em;
+            font-weight: lighter;
+
+            &.active {
+                border: 2px solid darkslategray;
+                font-weight: bold;
+            }
+        }
+    }
+}

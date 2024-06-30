@@ -1,0 +1,97 @@
+$switch-width: 170px;
+$switch-height: 50px;
+$slider-width: 100px;
+$slider-margin: 5px;
+$label-margin: 20px;
+
+$whiteskyblue: rgb(179, 240, 255);
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: $switch-width;
+    height: $switch-height;
+
+    & input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+
+        &:checked + .slider {
+            background-color: $whiteskyblue;
+        }
+
+        &:checked + .slider:before {
+            background-color: deepskyblue;
+            transform: translateX(0);
+        }
+    }
+
+    .slider {
+        & {
+            cursor: pointer;
+            position: absolute;
+            top: 0;
+            right: 0;
+            left: 0;
+            bottom: 0;
+            background-color: lightpink;
+            -webkit-transition: 0.4s;
+            transition: 0.4s;
+        }
+
+        &:before {
+            content: "";
+            width: $slider-width;
+            height: $switch-height - ($slider-margin * 2);
+            position: absolute;
+            left: $slider-margin;
+            bottom: $slider-margin;
+            background-color: deeppink;
+            transform: translateX($switch-width - $slider-width - ($slider-margin * 2));
+            -webkit-transition: 0.4s;
+            transition: 0.4s;
+        }
+
+        &.round {
+            border-radius: $switch-height / 2;
+        }
+
+        &.round:before {
+            border-radius: $switch-height / 2;
+        }
+    }
+
+    .label {
+        cursor: pointer;
+        width: $slider-width;
+        height: $switch-height - ($slider-margin * 2);
+        display: flex;
+        align-items: center;
+        position: absolute;
+        z-index: 1;
+        bottom: $slider-margin;
+        text-align: right;
+        line-height: $switch-height;
+
+        &.left {
+            left: $label-margin;
+            justify-content: left;
+            color: grey;
+
+            &.active {
+                color: white;
+            }
+        }
+
+        &.right {
+            right: $label-margin;
+            justify-content: right;
+            color: grey;
+
+            &.active {
+                color: white;
+            }
+        }
+    }
+}
