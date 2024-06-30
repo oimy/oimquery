@@ -1,4 +1,4 @@
-export class Failure {
+export default class Failure {
     message: string;
 
     constructor(message: string) {

@@ -1,6 +1,8 @@
-import { formatForMySql } from "../../../formatters/drawio/mysql";
 import { Table } from "../../../models/table";
+import MySqlFormatter from "../../../tools/query/formatters/MySqlFormatter";
 import "./QueryPreview.scss";
+
+const MYSQL_FORMATTER = new MySqlFormatter();
 
 export default function QueryPreview({
     table,
@@ -13,7 +15,7 @@ export default function QueryPreview({
     if (!table) {
         query = "";
     } else {
-        query = formatForMySql(table);
+        query = MYSQL_FORMATTER.format(table);
         if (isCopy) {
             navigator.clipboard.writeText(query);
         }
