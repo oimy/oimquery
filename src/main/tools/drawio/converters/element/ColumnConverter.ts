@@ -6,6 +6,7 @@ import { RowElement } from "../template/models";
 import {
     DuplicatedColumnNameFailure,
     NotExistColumnNameFailure,
+    NotExistPrimaryKeyFailure,
     NotOnlyOnePrimaryColumnNameFailure,
 } from "./failures";
 import KeyInterpreter from "./interpreters/KeyInterpreter";
@@ -20,7 +21,7 @@ export default class ColumnConverter implements Converter<RowElement[], ColumnCo
         const columns: Column[] = [];
         const visitedColumnNames: string[] = [];
 
-        let primaryKeyColumnName: string = "";
+        let primaryKeyColumnName: string = BLANK;
         const uniqueKeyIndexAndColumnNamesMap: Record<number, string[]> = {};
         const indexKeyIndexAndColumnNamesMap: Record<number, string[]> = {};
 
@@ -67,6 +68,7 @@ export default class ColumnConverter implements Converter<RowElement[], ColumnCo
                 indexKeyIndexAndColumnNamesMap[indexKeyIndex].push(rowElement.columnName);
             });
 
+            visitedColumnNames.push(rowElement.columnName);
             columns.push({
                 name: rowElement.columnName,
                 dataType: typeInterpretResult.type,
@@ -74,6 +76,10 @@ export default class ColumnConverter implements Converter<RowElement[], ColumnCo
                 comment: rowElement.comment,
                 sequence: rowElement.sequence,
             });
+        }
+
+        if (primaryKeyColumnName === BLANK) {
+            return ColumnConvertResult.ofFail([new NotExistPrimaryKeyFailure()]);
         }
 
         if (failures.length > 0) {

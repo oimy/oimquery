@@ -24,6 +24,12 @@ export class NotOnlyOnePrimaryColumnNameFailure extends Failure {
     }
 }
 
+export class NotExistPrimaryKeyFailure extends Failure {
+    constructor() {
+        super("primary key is not exists");
+    }
+}
+
 export class TryConversionByFailedParseResultFailure extends Failure {
     constructor() {
         super(`try conversion by failed parse results`);
