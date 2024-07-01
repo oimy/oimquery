@@ -2,21 +2,23 @@ import hljs from "highlight.js/lib/core";
 import sql from "highlight.js/lib/languages/sql";
 import "highlight.js/styles/github.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { ToastContainer, Zoom } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 import "./css/layout.scss";
 import "./css/object.scss";
 import "./css/shape.scss";
 import "./css/text.scss";
+import Header from "./main/components/header/Header";
+import ThemedToastContainer from "./main/components/toast/ThemedToastContainer";
 import Drawio from "./main/pages/drawio/Drawio";
+import { routeMilestones } from "./routes";
 
 hljs.registerLanguage("sql", sql);
 
 function App() {
     return (
         <div className="app">
-            <header></header>
+            <Header routeMilestones={routeMilestones} />
             <main>
                 <BrowserRouter>
                     <Routes>
@@ -24,19 +26,7 @@ function App() {
                     </Routes>
                 </BrowserRouter>
             </main>
-            <ToastContainer
-                style={{ width: "350px" }}
-                position="top-right"
-                autoClose={3000}
-                hideProgressBar={true}
-                newestOnTop={true}
-                closeOnClick
-                rtl={false}
-                draggable
-                pauseOnHover
-                theme="light"
-                transition={Zoom}
-            />
+            <ThemedToastContainer />
         </div>
     );
 }

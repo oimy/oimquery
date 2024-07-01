@@ -1,5 +1,5 @@
-import Box from "../../../components/Box";
-import { Table } from "../../../models/table";
+import Box from "../../../components/box/Box";
+import { Table } from "../../../components/toast/models/table";
 import "./QueryStat.scss";
 
 export default function QueryStat({ table }: { table: Table | undefined }) {

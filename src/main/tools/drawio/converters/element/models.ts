@@ -1,4 +1,4 @@
-import { Column } from "../../../../models/column";
+import { Column } from "../../../../components/toast/models/column";
 import { BLANK } from "../../../contants";
 import Failure from "../../Failure";
 import Result from "../../Result";

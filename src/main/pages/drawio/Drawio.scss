@@ -6,6 +6,7 @@ section.drawio {
         }
 
         &.hide {
+            display: none;
             animation: fadeout 0.5s;
             animation-fill-mode: forwards;
         }
@@ -17,18 +18,18 @@ section.drawio {
 
             100% {
                 opacity: 1;
-                display: block;
             }
         }
 
         @keyframes fadeout {
             0% {
                 opacity: 1;
+                display: block;
             }
 
             100% {
                 opacity: 0;
-                display: none;
+                display: block;
             }
         }
     }

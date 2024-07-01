@@ -1,4 +1,4 @@
-import { Table } from "../../../models/table";
+import { Table } from "../../../components/toast/models/table";
 import { INDENT } from "../../contants";
 import Formatter from "./Formatter";
 

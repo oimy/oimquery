@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Table } from "../../models/table";
+import { Table } from "../../components/toast/models/table";
 import "./Drawio.scss";
 import { DrawioOption, DrawioOptionContext, loadDrawioOption } from "./DrawioOptionContext";
 import GenerateButton from "./components/GenerateButton";

@@ -1,0 +1,14 @@
+header {
+    display: flex;
+    justify-content: center;
+
+    section.header {
+        align-items: end;
+
+        button.menu {
+            border: none;
+            background-color: transparent;
+            font-size: 1.4em;
+        }
+    }
+}

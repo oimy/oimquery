@@ -1,8 +1,8 @@
 import hljs from "highlight.js/lib/core";
 import { useContext, useEffect } from "react";
 import { toast } from "react-toastify";
-import Box from "../../../components/Box";
-import { Table } from "../../../models/table";
+import Box from "../../../components/box/Box";
+import { Table } from "../../../components/toast/models/table";
 import { BLANK } from "../../../tools/contants";
 import MySqlFormatter from "../../../tools/query/formatters/MySqlFormatter";
 import { safelyWriteToClipboard } from "../../../utils/clipboard";

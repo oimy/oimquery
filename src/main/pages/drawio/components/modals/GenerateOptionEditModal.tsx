@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import Switch from "../../../../components/Switch";
+import Switch from "../../../../components/switch/Switch";
 import { DrawioOption, DrawioOptionContext } from "../../DrawioOptionContext";
 import "./GenerateOptionEditModal.scss";
 

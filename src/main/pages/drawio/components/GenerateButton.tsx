@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { toast } from "react-toastify";
-import Modal from "../../../components/Modal";
-import { Table } from "../../../models/table";
+import Modal from "../../../components/modal/Modal";
+import { Table } from "../../../components/toast/models/table";
 import Failure from "../../../tools/drawio/Failure";
 import ColumnConverter from "../../../tools/drawio/converters/element/ColumnConverter";
 import TableNameConverter from "../../../tools/drawio/converters/element/TableNameConverter";
