@@ -40,7 +40,9 @@ export default function QueryPreview({ table }: { table: Table | undefined }) {
                 }}
             >
                 <pre>
-                    <code className="language-sql">{query}</code>
+                    <code key={query.length} className="language-sql">
+                        {query}
+                    </code>
                 </pre>
             </div>
         </Box>
