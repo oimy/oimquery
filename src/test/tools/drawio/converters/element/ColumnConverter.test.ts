@@ -15,13 +15,20 @@ import { RowElement } from "../../../../../main/tools/drawio/converters/template
 describe("ColumnConverter convert is", () => {
     const converter = new ColumnConverter();
 
-    it("expect one NotExistColumnNameFailure when given one blank column name", () => {
+    it("expect one NotExistColumnNameFailure and when given one blank column name", () => {
         const givenRowElements: RowElement[] = [
             {
                 sequence: 1,
                 key: "PK",
-                columnName: BLANK,
+                columnName: "srl",
                 type: "bigint",
+                comment: "",
+            },
+            {
+                sequence: 1,
+                key: "",
+                columnName: BLANK,
+                type: "integer",
                 comment: "",
             },
         ];
