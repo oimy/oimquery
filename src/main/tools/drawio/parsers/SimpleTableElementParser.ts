@@ -1,63 +1,28 @@
 import Failure from "../Failure";
-import Result from "../Result";
 import ConstraintAndNameAndTypeAndCommentTemplateConverter from "../converters/template/ConstraintAndNameAndTypeAndCommentTemplateParser";
 import ConstraintAndNameAndTypeTemplateConverter from "../converters/template/ConstraintAndNameAndTypeTemplateParser";
 import TemplateConverter from "../converters/template/TemplateConverter";
 import { TemplateConvertResult } from "../converters/template/models";
 import TableElementParser from "./TableElementParser";
 import {
-    InvalidHtmlTextFailure,
-    LackOfCellValuesFailures,
+    InsufficientRowsFailure,
+    NotSupportedTemplateFailure,
     NotSupportedTextFailure,
 } from "./failures";
-import { TableElementParseResult } from "./models";
+import { CellParseResult, TableElementParseResult } from "./models";
 
 const DOM_PARSER = new DOMParser();
-const MINIMUM_CELL_VALUES_LENGTH = 4;
-const GRAPH_MODEL_TAG = "<mxGraphModel>";
-
-export class CellParseResult extends Result {
-    cellValues: string[];
-    columnCount: number;
-
-    private constructor(
-        cellValues: string[],
-        columnCount: number,
-        isSuccess: boolean,
-        failures: Failure[]
-    ) {
-        super(isSuccess, failures);
-        this.cellValues = cellValues;
-        this.columnCount = columnCount;
-    }
-
-    static ofSuccess(cellValues: string[], columnCount: number) {
-        return new CellParseResult(cellValues, columnCount, true, []);
-    }
-
-    static ofFail(failures: Failure[]) {
-        return new CellParseResult([], 0, false, failures);
-    }
-
-    static ofOneFail(failure: Failure) {
-        return new CellParseResult([], 0, false, [failure]);
-    }
-}
+const MINIMUM_CELL_VALUES_LENGTH = 5;
+const GRAPH_MODEL_TAG = "<mxgraphmodel>";
 
 export default class SimpleTableElementParser implements TableElementParser {
     private parseElementToCell(tableElementText: string): CellParseResult {
         const decodedTableElementText: string = decodeURIComponent(tableElementText);
-        if (!decodedTableElementText.includes(GRAPH_MODEL_TAG)) {
+        if (!decodedTableElementText.toLowerCase().includes(GRAPH_MODEL_TAG)) {
             return CellParseResult.ofOneFail(new NotSupportedTextFailure());
         }
 
-        let document: Document;
-        try {
-            document = DOM_PARSER.parseFromString(decodedTableElementText, "text/html");
-        } catch (e) {
-            return CellParseResult.ofOneFail(new InvalidHtmlTextFailure());
-        }
-
+        const document: Document = DOM_PARSER.parseFromString(decodedTableElementText, "text/html");
         const mxCellNodes: XPathResult = document.evaluate(
             "//mxCell",
             document,
@@ -81,9 +46,7 @@ export default class SimpleTableElementParser implements TableElementParser {
             mxCellNode = mxCellNodes.iterateNext();
         }
         if (cellValues.length < MINIMUM_CELL_VALUES_LENGTH) {
-            return CellParseResult.ofOneFail(
-                new LackOfCellValuesFailures(MINIMUM_CELL_VALUES_LENGTH)
-            );
+            return CellParseResult.ofOneFail(new InsufficientRowsFailure());
         }
 
         const parentIdAndCountMap = parentIds.reduce((acc, parentId) => {
@@ -103,14 +66,14 @@ export default class SimpleTableElementParser implements TableElementParser {
         return CellParseResult.ofSuccess(cellValues, maxColumnCount);
     }
 
-    private determineTemplateConverter(columnCount: number): TemplateConverter {
+    private determineTemplateConverter(columnCount: number): TemplateConverter | Failure {
         switch (columnCount) {
             case 4:
                 return new ConstraintAndNameAndTypeAndCommentTemplateConverter();
             case 3:
                 return new ConstraintAndNameAndTypeTemplateConverter();
             default:
-                throw new Error("not supported column count " + columnCount);
+                return new NotSupportedTemplateFailure("not supported column count " + columnCount);
         }
     }
 
@@ -119,9 +82,12 @@ export default class SimpleTableElementParser implements TableElementParser {
         if (!cellParseResult.isSuccess) {
             return TableElementParseResult.ofFail(cellParseResult.failures);
         }
-        const templateConverter: TemplateConverter = this.determineTemplateConverter(
-            cellParseResult.columnCount
-        );
+
+        const templateConverter = this.determineTemplateConverter(cellParseResult.columnCount);
+        if (templateConverter instanceof Failure) {
+            return TableElementParseResult.ofFail([templateConverter]);
+        }
+
         const templateConvertResult: TemplateConvertResult = templateConverter.convert(
             cellParseResult.cellValues
         );

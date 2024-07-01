@@ -26,3 +26,31 @@ export class TableElementParseResult extends Result {
         return new TableElementParseResult(BLANK, [], false, failures);
     }
 }
+
+export class CellParseResult extends Result {
+    cellValues: string[];
+    columnCount: number;
+
+    private constructor(
+        cellValues: string[],
+        columnCount: number,
+        isSuccess: boolean,
+        failures: Failure[]
+    ) {
+        super(isSuccess, failures);
+        this.cellValues = cellValues;
+        this.columnCount = columnCount;
+    }
+
+    static ofSuccess(cellValues: string[], columnCount: number) {
+        return new CellParseResult(cellValues, columnCount, true, []);
+    }
+
+    static ofFail(failures: Failure[]) {
+        return new CellParseResult([], 0, false, failures);
+    }
+
+    static ofOneFail(failure: Failure) {
+        return new CellParseResult([], 0, false, [failure]);
+    }
+}

@@ -6,14 +6,14 @@ export class NotSupportedTextFailure extends Failure {
     }
 }
 
-export class InvalidHtmlTextFailure extends Failure {
+export class InsufficientRowsFailure extends Failure {
     constructor() {
-        super("invalid html text");
+        super("rows is insufficient");
     }
 }
 
-export class LackOfCellValuesFailures extends Failure {
-    constructor(minimumLength: number) {
-        super("lack of cell values, it must be at least " + minimumLength);
+export class NotSupportedTemplateFailure extends Failure {
+    constructor(message?: string) {
+        super("not supported template" + (message ? ` ${message}` : ""));
     }
 }
