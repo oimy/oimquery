@@ -22,7 +22,12 @@ npm run start
 
 ## draw.io
 
--   ...
+-   [visit here for getting draw.io table templates](https://viewer.diagrams.net/?tags=%7B%7D&lightbox=1&target=blank&highlight=0000ff&edit=_blank&layers=1&nav=1#G1yQu57H8Gm_iUqV0noJzHK-KkIiygMO-j)
+    -   click edit button
+    -   copy a template you want
+-   overwrite your table to template
+-   visit drawio page by clicking menu or redirecting to `/drawio`
+-   generate a query!
 
 <br />
 <br />
