@@ -11,11 +11,9 @@ export default class MySqlFormatter implements Formatter {
 
         const contentLines = [];
         table.columns.forEach((column) => {
-            const line =
-                `${INDENT}${column.name} ${column.dataType} ${
-                    column.isNullable ? "NULL" : "NOT NULL"
-                } COMMENT '${column.comment}'` +
-                (column.name === table.columnKeyOption.primaryKeyColumnName ? " PRIMARY KEY" : "");
+            const line = `${INDENT}${column.name} ${column.dataType} ${
+                column.isNullable ? "NULL" : "NOT NULL"
+            } COMMENT '${column.comment}'`;
             contentLines.push(line);
         });
         contentLines.push(`${INDENT}PRIMARY KEY (${table.columnKeyOption.primaryKeyColumnName})`);
