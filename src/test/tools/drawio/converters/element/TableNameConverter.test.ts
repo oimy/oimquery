@@ -46,4 +46,17 @@ describe("TableNameConverter convert is", () => {
         expect(actualConvertResult.schema).toEqual(givenSchema);
         expect(actualConvertResult.name).toEqual(givenName);
     });
+
+    it("export schema and name when given separated title", () => {
+        const givenSchema = "ploy";
+        const givenName = "apples";
+        const givenTitle = `<span style="color: rgb(255, 255, 255);">${givenSchema}</span><font color="#ffffff">.${givenName}</font>`;
+
+        const actualConvertResult = converter.convert(givenTitle);
+
+        expect(actualConvertResult.isSuccess).toEqual(true);
+        expect(actualConvertResult.failures).toEqual([]);
+        expect(actualConvertResult.schema).toEqual(givenSchema);
+        expect(actualConvertResult.name).toEqual(givenName);
+    });
 });
