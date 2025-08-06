@@ -1,4 +1,4 @@
-import { BLANK, NULLABLE } from "../../../../../main/tools/contants";
+import { BLANK, NULLABLE } from "../../../../../main/tools/constants";
 import ColumnConverter from "../../../../../main/tools/drawio/converters/element/ColumnConverter";
 import {
     DuplicatedColumnNameFailure,
@@ -35,7 +35,9 @@ describe("ColumnConverter convert is", () => {
 
         const actualConvertResult = converter.convert(givenRowElements);
         expect(actualConvertResult.isSuccess).toBeFalsy();
-        expect(actualConvertResult.failures).toEqual([new NotExistColumnNameFailure()]);
+        expect(actualConvertResult.failures).toEqual([
+            new NotExistColumnNameFailure(),
+        ]);
     });
 
     it("expect two NotExistColumnNameFailures when given two blank column names", () => {
@@ -170,7 +172,9 @@ describe("ColumnConverter convert is", () => {
         const actualConvertResult = converter.convert(givenRowElements);
 
         expect(actualConvertResult.isSuccess).toBeFalsy();
-        expect(actualConvertResult.failures).toEqual([new NotExistPrimaryKeyFailure()]);
+        expect(actualConvertResult.failures).toEqual([
+            new NotExistPrimaryKeyFailure(),
+        ]);
     });
 
     it("expect valid unique indexes when given unique key columns", () => {
@@ -406,7 +410,9 @@ describe("ColumnConverter convert is", () => {
 
         expect(actualConvertResult.isSuccess).toBeTruthy();
         expect(actualConvertResult.failures).toEqual([]);
-        expect(actualConvertResult.columns.length).toEqual(givenRowElements.length);
+        expect(actualConvertResult.columns.length).toEqual(
+            givenRowElements.length
+        );
         expect(actualConvertResult.columns[1].isNullable).toBeTruthy();
         expect(actualConvertResult.columns[1].dataType).not.toContain(NULLABLE);
     });

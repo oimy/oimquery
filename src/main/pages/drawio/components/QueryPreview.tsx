@@ -3,7 +3,7 @@ import { useContext, useEffect } from "react";
 import { toast } from "react-toastify";
 import Box from "../../../components/box/Box";
 import { Table } from "../../../components/toast/models/table";
-import { BLANK } from "../../../tools/contants";
+import { BLANK } from "../../../tools/constants";
 import MySqlFormatter from "../../../tools/query/formatters/MySqlFormatter";
 import { safelyWriteToClipboard } from "../../../utils/clipboard";
 import { DrawioOption, DrawioOptionContext } from "../DrawioOptionContext";

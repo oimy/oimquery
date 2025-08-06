@@ -1,13 +1,20 @@
-import { BLANK } from "../../../contants";
-import { InvalidTemplateFormatFailure, TitleCellNotExistOrBlankFailure } from "../failures";
+import { BLANK } from "../../../constants";
+import {
+    InvalidTemplateFormatFailure,
+    TitleCellNotExistOrBlankFailure,
+} from "../failures";
 import { RowElement, TemplateConvertResult } from "./models";
 import TemplateConverter from "./TemplateConverter";
 
-export default class ConstraintAndNameAndTypeTemplateConverter implements TemplateConverter {
+export default class ConstraintAndNameAndTypeTemplateConverter
+    implements TemplateConverter
+{
     convert(cellValues: string[]): TemplateConvertResult {
         const title: string = cellValues[2];
         if (title === BLANK) {
-            return TemplateConvertResult.ofFail([new TitleCellNotExistOrBlankFailure()]);
+            return TemplateConvertResult.ofFail([
+                new TitleCellNotExistOrBlankFailure(),
+            ]);
         }
 
         const rows: RowElement[] = [];
@@ -23,7 +30,9 @@ export default class ConstraintAndNameAndTypeTemplateConverter implements Templa
                 rows.push(row);
             }
         } catch (e) {
-            return TemplateConvertResult.ofFail([new InvalidTemplateFormatFailure()]);
+            return TemplateConvertResult.ofFail([
+                new InvalidTemplateFormatFailure(),
+            ]);
         }
 
         return TemplateConvertResult.ofSuccess(title, rows);

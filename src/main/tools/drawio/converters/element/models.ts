@@ -1,5 +1,5 @@
 import { Column } from "../../../../components/toast/models/column";
-import { BLANK } from "../../../contants";
+import { BLANK } from "../../../constants";
 import Failure from "../../Failure";
 import Result from "../../Result";
 
@@ -7,7 +7,12 @@ export class TableNameConvertResult extends Result {
     schema: string;
     name: string;
 
-    private constructor(schema: string, name: string, failures: Failure[], isSuccess: boolean) {
+    private constructor(
+        schema: string,
+        name: string,
+        failures: Failure[],
+        isSuccess: boolean
+    ) {
         super(isSuccess, failures);
         this.schema = schema;
         this.name = name;

@@ -1,4 +1,4 @@
-import { BLANK } from "../../../contants";
+import { BLANK } from "../../../constants";
 import Failure from "../../Failure";
 import Result from "../../Result";
 

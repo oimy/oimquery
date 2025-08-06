@@ -1,4 +1,4 @@
-import { BLANK, COMMA } from "../../../../contants";
+import { BLANK, COMMA } from "../../../../constants";
 import Failure from "../../../Failure";
 import { RowElement } from "../../template/models";
 import Interpreter from "./Interpreter";
@@ -34,12 +34,20 @@ export default class KeyInterpreter implements Interpreter<KeyInterpretResult> {
             isPrimary = true;
         }
         if (keyType === "unique") {
-            uniqueKeyIndexes.push(parseInt(key.toLowerCase().replace("uk", "")));
+            uniqueKeyIndexes.push(
+                parseInt(key.toLowerCase().replace("uk", ""))
+            );
         }
         if (keyType === "index") {
-            indexKeyIndexes.push(parseInt(key.toLowerCase().replace("idx", "")));
+            indexKeyIndexes.push(
+                parseInt(key.toLowerCase().replace("idx", ""))
+            );
         }
-        return KeyInterpretResult.ofSuccess(isPrimary, uniqueKeyIndexes, indexKeyIndexes);
+        return KeyInterpretResult.ofSuccess(
+            isPrimary,
+            uniqueKeyIndexes,
+            indexKeyIndexes
+        );
     }
 
     interpret(rowElement: RowElement): KeyInterpretResult {
@@ -49,7 +57,11 @@ export default class KeyInterpreter implements Interpreter<KeyInterpretResult> {
         const failures: Failure[] = [];
 
         if (rowElement.key === BLANK) {
-            return KeyInterpretResult.ofSuccess(isPrimary, uniqueKeyIndexes, indexKeyIndexes);
+            return KeyInterpretResult.ofSuccess(
+                isPrimary,
+                uniqueKeyIndexes,
+                indexKeyIndexes
+            );
         }
 
         const keys = rowElement.key.split(COMMA);
@@ -70,6 +82,10 @@ export default class KeyInterpreter implements Interpreter<KeyInterpretResult> {
         if (failures.length > 0) {
             return KeyInterpretResult.ofFail(failures);
         }
-        return KeyInterpretResult.ofSuccess(isPrimary, uniqueKeyIndexes, indexKeyIndexes);
+        return KeyInterpretResult.ofSuccess(
+            isPrimary,
+            uniqueKeyIndexes,
+            indexKeyIndexes
+        );
     }
 }
