@@ -1,14 +1,10 @@
 import { useContext } from "react";
 import Switch from "../../../../components/switch/Switch";
-import { DrawioOption, DrawioOptionContext } from "../../DrawioOptionContext";
+import { MysqlOption, MysqlOptionContext } from "../../MysqlOptionContext";
 import "./GenerateOptionEditModal.scss";
 
-export default function GenerateOptionEditModal({
-    onChange,
-}: {
-    onChange: (option: DrawioOption) => void;
-}) {
-    const option: DrawioOption = useContext(DrawioOptionContext);
+export default function GenerateOptionEditModal({ onChange }: { onChange: (option: MysqlOption) => void }) {
+    const option: MysqlOption = useContext(MysqlOptionContext);
 
     return (
         <article className="box generate-option-edit-modal">

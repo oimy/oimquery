@@ -1,17 +1,17 @@
-section.drawio {
+section.mysql {
     div.generate-result {
         &.show {
-            animation: fadein 0.5s;
+            animation: fade-in 0.5s;
             animation-fill-mode: forwards;
         }
 
         &.hide {
             display: none;
-            animation: fadeout 0.5s;
+            animation: fade-out 0.5s;
             animation-fill-mode: forwards;
         }
 
-        @keyframes fadein {
+        @keyframes fade-in {
             0% {
                 opacity: 0;
             }
@@ -21,7 +21,7 @@ section.drawio {
             }
         }
 
-        @keyframes fadeout {
+        @keyframes fade-out {
             0% {
                 opacity: 1;
                 display: block;

@@ -7,7 +7,7 @@ import ColumnConverter from "../../../tools/drawio/converters/element/ColumnConv
 import TableNameConverter from "../../../tools/drawio/converters/element/TableNameConverter";
 import SimpleTableElementParser from "../../../tools/drawio/parsers/SimpleTableElementParser";
 import { readClipboardTextOrBlank } from "../../../utils/clipboard";
-import { DrawioOption, DrawioOptionContext, saveDrawioOption } from "../DrawioOptionContext";
+import { MysqlOption, MysqlOptionContext, saveDrawioOption } from "../MysqlOptionContext";
 import "./GenerateButton.scss";
 import Tooltip from "./Tooltip";
 import GenerateOptionEditModal from "./modals/GenerateOptionEditModal";
@@ -21,11 +21,11 @@ export default function GenerateButton({
     onGenerate,
     onFail,
 }: {
-    setOption: (option: DrawioOption) => void;
+    setOption: (option: MysqlOption) => void;
     onGenerate: (table: Table) => void;
     onFail: () => void;
 }) {
-    const option: DrawioOption = useContext(DrawioOptionContext);
+    const option: MysqlOption = useContext(MysqlOptionContext);
 
     function handleFailures(failures: Failure[]) {
         failures.forEach((failure) => {
@@ -56,8 +56,7 @@ export default function GenerateButton({
             columns: columnConvertResult.columns,
             columnKeyOption: {
                 primaryKeyColumnName: columnConvertResult.primaryKeyColumnName,
-                uniqueKeyIndexAndColumnNamesMap:
-                    columnConvertResult.uniqueKeyIndexAndColumnNamesMap,
+                uniqueKeyIndexAndColumnNamesMap: columnConvertResult.uniqueKeyIndexAndColumnNamesMap,
                 indexKeyIndexAndColumnNameMap: columnConvertResult.indexKeyIndexAndColumnNamesMap,
             },
         });
@@ -79,9 +78,7 @@ export default function GenerateButton({
                     if (!tableElementParseResult.isSuccess) {
                         return setClipboardText(decodedText);
                     }
-                    const tableNameConvertResult = TABLE_NAME_CONVERTER.convert(
-                        tableElementParseResult.title
-                    );
+                    const tableNameConvertResult = TABLE_NAME_CONVERTER.convert(tableElementParseResult.title);
                     if (!tableNameConvertResult) {
                         return setClipboardText(decodedText);
                     }
@@ -139,7 +136,7 @@ export default function GenerateButton({
             {modal === "edit-option" && (
                 <Modal onClose={() => setModal("")}>
                     <GenerateOptionEditModal
-                        onChange={(option: DrawioOption) => {
+                        onChange={(option: MysqlOption) => {
                             setOption(option);
                             saveDrawioOption(option);
                         }}

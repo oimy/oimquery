@@ -1,6 +1,6 @@
 import { createContext } from "react";
 
-export interface DrawioOption {
+export interface MysqlOption {
     isShowTablePreview: boolean;
     isShowQueryPreview: boolean;
     isShowQueryStat: boolean;
@@ -18,11 +18,11 @@ const DEFAULT_DRAWIO_OPTION = {
 
 const DRAWIO_OPTION_KEY = "DRAWIO_OPTION";
 
-export const saveDrawioOption = (option: DrawioOption) => {
+export const saveDrawioOption = (option: MysqlOption) => {
     localStorage.setItem(DRAWIO_OPTION_KEY, JSON.stringify(option));
 };
 
-export const loadDrawioOption = (): DrawioOption => {
+export const loadDrawioOption = (): MysqlOption => {
     const savedDrawioOption = localStorage.getItem(DRAWIO_OPTION_KEY);
     if (savedDrawioOption) {
         return JSON.parse(savedDrawioOption);
@@ -30,4 +30,4 @@ export const loadDrawioOption = (): DrawioOption => {
     return DEFAULT_DRAWIO_OPTION;
 };
 
-export const DrawioOptionContext = createContext<DrawioOption>(loadDrawioOption());
+export const MysqlOptionContext = createContext<MysqlOption>(loadDrawioOption());

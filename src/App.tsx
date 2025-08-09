@@ -10,7 +10,8 @@ import "./css/shape.scss";
 import "./css/text.scss";
 import Header from "./main/components/header/Header";
 import ThemedToastContainer from "./main/components/toast/ThemedToastContainer";
-import Drawio from "./main/pages/drawio/Drawio";
+import Kotlin from "./main/pages/kotlin/Kotlin";
+import Mysql from "./main/pages/mysql/Mysql";
 import { routeMilestones } from "./routes";
 
 hljs.registerLanguage("sql", sql);
@@ -22,7 +23,8 @@ function App() {
             <main>
                 <BrowserRouter>
                     <Routes>
-                        <Route path="/drawio" element={<Drawio />} />
+                        <Route path="/mysql" element={<Mysql />} />
+                        <Route path="/kotlin" element={<Kotlin />} />
                     </Routes>
                 </BrowserRouter>
             </main>

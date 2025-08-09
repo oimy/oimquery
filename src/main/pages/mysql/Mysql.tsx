@@ -1,17 +1,17 @@
 import { useState } from "react";
 import { Table } from "../../components/toast/models/table";
-import "./Drawio.scss";
-import { DrawioOption, DrawioOptionContext, loadDrawioOption } from "./DrawioOptionContext";
+import "./Mysql.scss";
+import { loadDrawioOption, MysqlOption, MysqlOptionContext } from "./MysqlOptionContext";
 import GenerateButton from "./components/GenerateButton";
 import QueryPreview from "./components/QueryPreview";
 import QueryStat from "./components/QueryStat";
 import TablePreview from "./components/TablePreview";
 
-export default function Drawio() {
+export default function Mysql() {
     const [table, setTable] = useState<Table>();
     const [isShowResult, setIsShowResult] = useState<boolean>(false);
 
-    const [option, setOption] = useState<DrawioOption>(loadDrawioOption());
+    const [option, setOption] = useState<MysqlOption>(loadDrawioOption());
 
     function renderQuery() {
         if (option.isShowQueryPreview && option.isShowQueryStat) {
@@ -45,8 +45,8 @@ export default function Drawio() {
     }
 
     return (
-        <DrawioOptionContext.Provider value={option}>
-            <section className="container drawio">
+        <MysqlOptionContext.Provider value={option}>
+            <section className="container mysql">
                 <GenerateButton
                     setOption={setOption}
                     onGenerate={(table: Table) => {
@@ -57,6 +57,6 @@ export default function Drawio() {
                 />
                 {renderResults()}
             </section>
-        </DrawioOptionContext.Provider>
+        </MysqlOptionContext.Provider>
     );
 }

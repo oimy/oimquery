@@ -6,8 +6,13 @@ export interface RouteMilestone {
 
 export const routeMilestones: RouteMilestone[] = [
     {
-        name: "draw.io",
-        path: "/drawio",
+        name: "Mysql",
+        path: "/mysql",
         color: "orange",
+    },
+    {
+        name: "Kotlin",
+        path: "/kotlin",
+        color: "purple",
     },
 ];
