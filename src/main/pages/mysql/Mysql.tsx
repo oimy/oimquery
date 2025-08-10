@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Table } from "../../components/toast/models/table";
+import { Table } from "../../tools/drawio/models/table";
 import "./Mysql.scss";
 import { loadDrawioOption, MysqlOption, MysqlOptionContext } from "./MysqlOptionContext";
 import GenerateButton from "./components/GenerateButton";
@@ -37,7 +37,7 @@ export default function Mysql() {
 
     function renderResults() {
         return (
-            <div className={`generate-result ${isShowResult ? "show" : "hide"}`}>
+            <div className={`generate-results ${isShowResult ? "show" : "hide"}`}>
                 {option.isShowTablePreview && <TablePreview table={table} />}
                 {renderQuery()}
             </div>

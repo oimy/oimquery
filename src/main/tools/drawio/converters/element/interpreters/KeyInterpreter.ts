@@ -5,7 +5,7 @@ import Interpreter from "./Interpreter";
 import { NotSupportedKeyFailure } from "./failures";
 import { KeyInterpretResult } from "./models";
 
-type KeyType = "primary" | "unique" | "index";
+type KeyType = "primary" | "unique" | "index" | "foreign";
 
 export default class KeyInterpreter implements Interpreter<KeyInterpretResult> {
     private identifyType(word: string): KeyType | null {
@@ -16,6 +16,8 @@ export default class KeyInterpreter implements Interpreter<KeyInterpretResult> {
             return "unique";
         } else if (/idx[0-9]+$/.test(lowerWord)) {
             return "index";
+        } else if (lowerWord === "fk") {
+            return "foreign";
         }
         return null;
     }
@@ -29,39 +31,32 @@ export default class KeyInterpreter implements Interpreter<KeyInterpretResult> {
         let isPrimary: boolean = false;
         const uniqueKeyIndexes: number[] = [];
         const indexKeyIndexes: number[] = [];
+        const foreignKeyIndexes: number[] = [];
 
         if (keyType === "primary") {
             isPrimary = true;
         }
         if (keyType === "unique") {
-            uniqueKeyIndexes.push(
-                parseInt(key.toLowerCase().replace("uk", ""))
-            );
+            uniqueKeyIndexes.push(parseInt(key.toLowerCase().replace("uk", "")));
         }
         if (keyType === "index") {
-            indexKeyIndexes.push(
-                parseInt(key.toLowerCase().replace("idx", ""))
-            );
+            indexKeyIndexes.push(parseInt(key.toLowerCase().replace("idx", "")));
         }
-        return KeyInterpretResult.ofSuccess(
-            isPrimary,
-            uniqueKeyIndexes,
-            indexKeyIndexes
-        );
+        if (keyType === "foreign") {
+            foreignKeyIndexes.push(parseInt(key.toLowerCase().replace("fk", "")));
+        }
+        return KeyInterpretResult.ofSuccess(isPrimary, uniqueKeyIndexes, indexKeyIndexes, foreignKeyIndexes);
     }
 
     interpret(rowElement: RowElement): KeyInterpretResult {
         let isPrimary: boolean = false;
         const uniqueKeyIndexes: number[] = [];
         const indexKeyIndexes: number[] = [];
+        const foreignKeyIndexes: number[] = [];
         const failures: Failure[] = [];
 
         if (rowElement.key === BLANK) {
-            return KeyInterpretResult.ofSuccess(
-                isPrimary,
-                uniqueKeyIndexes,
-                indexKeyIndexes
-            );
+            return KeyInterpretResult.ofSuccess(isPrimary, uniqueKeyIndexes, indexKeyIndexes, foreignKeyIndexes);
         }
 
         const keys = rowElement.key.split(COMMA);
@@ -77,15 +72,12 @@ export default class KeyInterpreter implements Interpreter<KeyInterpretResult> {
             }
             uniqueKeyIndexes.push(...result.uniqueKeyIndexes);
             indexKeyIndexes.push(...result.indexKeyIndexes);
+            foreignKeyIndexes.push(...result.foreignKeyIndexes);
         });
 
         if (failures.length > 0) {
             return KeyInterpretResult.ofFail(failures);
         }
-        return KeyInterpretResult.ofSuccess(
-            isPrimary,
-            uniqueKeyIndexes,
-            indexKeyIndexes
-        );
+        return KeyInterpretResult.ofSuccess(isPrimary, uniqueKeyIndexes, indexKeyIndexes, foreignKeyIndexes);
     }
 }

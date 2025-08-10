@@ -1,18 +1,13 @@
-import { Column } from "../../../../components/toast/models/column";
 import { BLANK } from "../../../constants";
 import Failure from "../../Failure";
+import { Column } from "../../models/column";
 import Result from "../../Result";
 
 export class TableNameConvertResult extends Result {
     schema: string;
     name: string;
 
-    private constructor(
-        schema: string,
-        name: string,
-        failures: Failure[],
-        isSuccess: boolean
-    ) {
+    private constructor(schema: string, name: string, failures: Failure[], isSuccess: boolean) {
         super(isSuccess, failures);
         this.schema = schema;
         this.name = name;
@@ -32,12 +27,14 @@ export class ColumnConvertResult extends Result {
     primaryKeyColumnName: string;
     uniqueKeyIndexAndColumnNamesMap: Record<number, string[]>;
     indexKeyIndexAndColumnNamesMap: Record<number, string[]>;
+    foreignKeyIndexAndColumnNamesMap: Record<number, string[]>;
 
     private constructor(
         columns: Column[],
         primaryKeyColumnName: string,
         uniqueKeyIndexAndColumnNamesMap: Record<number, string[]>,
         indexKeyIndexAndColumnNamesMap: Record<number, string[]>,
+        foreignKeyIndexAndColumnNamesMap: Record<number, string[]>,
         failures: Failure[],
         isSuccess: boolean
     ) {
@@ -46,25 +43,28 @@ export class ColumnConvertResult extends Result {
         this.primaryKeyColumnName = primaryKeyColumnName;
         this.uniqueKeyIndexAndColumnNamesMap = uniqueKeyIndexAndColumnNamesMap;
         this.indexKeyIndexAndColumnNamesMap = indexKeyIndexAndColumnNamesMap;
+        this.foreignKeyIndexAndColumnNamesMap = foreignKeyIndexAndColumnNamesMap;
     }
 
     static ofSuccess(
         columns: Column[],
         primaryKeyColumnName: string,
         uniqueKeyIndexAndColumnNamesMap: Record<number, string[]>,
-        indexKeyIndexAndColumnNamesMap: Record<number, string[]>
+        indexKeyIndexAndColumnNamesMap: Record<number, string[]>,
+        foreignKeyIndexAndColumnNamesMap: Record<number, string[]>
     ) {
         return new ColumnConvertResult(
             columns,
             primaryKeyColumnName,
             uniqueKeyIndexAndColumnNamesMap,
             indexKeyIndexAndColumnNamesMap,
+            foreignKeyIndexAndColumnNamesMap,
             [],
             true
         );
     }
 
     static ofFail(failures: Failure[]) {
-        return new ColumnConvertResult([], "", {}, {}, failures, false);
+        return new ColumnConvertResult([], "", {}, {}, {}, failures, false);
     }
 }

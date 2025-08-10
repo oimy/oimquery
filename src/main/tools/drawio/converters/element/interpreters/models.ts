@@ -7,11 +7,13 @@ export class KeyInterpretResult extends Result {
     isPrimary: boolean = false;
     uniqueKeyIndexes: number[] = [];
     indexKeyIndexes: number[] = [];
+    foreignKeyIndexes: number[] = [];
 
     private constructor(
         isPrimary: boolean,
         uniqueKeyIndexes: number[],
         indexKeyIndexes: number[],
+        foreignKeyIndexes: number[],
         isSuccess: boolean,
         failures: Failure[]
     ) {
@@ -19,14 +21,20 @@ export class KeyInterpretResult extends Result {
         this.isPrimary = isPrimary;
         this.uniqueKeyIndexes = uniqueKeyIndexes;
         this.indexKeyIndexes = indexKeyIndexes;
+        this.foreignKeyIndexes = foreignKeyIndexes;
     }
 
-    static ofSuccess(isPrimary: boolean, uniqueKeyIndexes: number[], indexKeyIndexes: number[]) {
-        return new KeyInterpretResult(isPrimary, uniqueKeyIndexes, indexKeyIndexes, true, []);
+    static ofSuccess(
+        isPrimary: boolean,
+        uniqueKeyIndexes: number[],
+        indexKeyIndexes: number[],
+        foreignKeyIndexes: number[]
+    ) {
+        return new KeyInterpretResult(isPrimary, uniqueKeyIndexes, indexKeyIndexes, foreignKeyIndexes, true, []);
     }
 
     static ofFail(failures: Failure[]) {
-        return new KeyInterpretResult(false, [], [], false, failures);
+        return new KeyInterpretResult(false, [], [], [], false, failures);
     }
 }
 

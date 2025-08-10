@@ -1,5 +1,5 @@
 import Box from "../../../components/box/Box";
-import { Table } from "../../../components/toast/models/table";
+import { Table } from "../../../tools/drawio/models/table";
 import "./QueryStat.scss";
 
 export default function QueryStat({ table }: { table: Table | undefined }) {
@@ -19,22 +19,11 @@ export default function QueryStat({ table }: { table: Table | undefined }) {
                         </tr>
                         <tr>
                             <th>Unique Keys</th>
-                            <td>
-                                {
-                                    Object.keys(
-                                        table.columnKeyOption.uniqueKeyIndexAndColumnNamesMap
-                                    ).length
-                                }
-                            </td>
+                            <td>{Object.keys(table.columnKeyOption.uniqueKeyIndexAndColumnNamesMap).length}</td>
                         </tr>
                         <tr>
                             <th>Index Keys</th>
-                            <td>
-                                {
-                                    Object.keys(table.columnKeyOption.indexKeyIndexAndColumnNameMap)
-                                        .length
-                                }
-                            </td>
+                            <td>{Object.keys(table.columnKeyOption.indexKeyIndexAndColumnNameMap).length}</td>
                         </tr>
                     </tbody>
                 </table>

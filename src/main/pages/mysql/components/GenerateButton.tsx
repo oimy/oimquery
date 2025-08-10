@@ -1,15 +1,15 @@
 import { useContext, useState } from "react";
 import { toast } from "react-toastify";
 import Modal from "../../../components/modal/Modal";
-import { Table } from "../../../components/toast/models/table";
+import Tooltip from "../../../components/tooltip/Tooltip";
 import Failure from "../../../tools/drawio/Failure";
 import ColumnConverter from "../../../tools/drawio/converters/element/ColumnConverter";
 import TableNameConverter from "../../../tools/drawio/converters/element/TableNameConverter";
+import { Table } from "../../../tools/drawio/models/table";
 import SimpleTableElementParser from "../../../tools/drawio/parsers/SimpleTableElementParser";
 import { readClipboardTextOrBlank } from "../../../utils/clipboard";
 import { MysqlOption, MysqlOptionContext, saveDrawioOption } from "../MysqlOptionContext";
 import "./GenerateButton.scss";
-import Tooltip from "./Tooltip";
 import GenerateOptionEditModal from "./modals/GenerateOptionEditModal";
 
 const TABLE_ELEMENT_PARSER = new SimpleTableElementParser();
@@ -58,6 +58,7 @@ export default function GenerateButton({
                 primaryKeyColumnName: columnConvertResult.primaryKeyColumnName,
                 uniqueKeyIndexAndColumnNamesMap: columnConvertResult.uniqueKeyIndexAndColumnNamesMap,
                 indexKeyIndexAndColumnNameMap: columnConvertResult.indexKeyIndexAndColumnNamesMap,
+                foreignKeyIndexAndColumnNameMap: columnConvertResult.foreignKeyIndexAndColumnNamesMap,
             },
         });
     }

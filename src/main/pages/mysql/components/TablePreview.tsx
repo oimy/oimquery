@@ -1,5 +1,5 @@
 import Box from "../../../components/box/Box";
-import { Table } from "../../../components/toast/models/table";
+import { Table } from "../../../tools/drawio/models/table";
 import "./TablePreview.scss";
 
 export default function TablePreview({ table }: { table: Table | undefined }) {
