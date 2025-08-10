@@ -32,7 +32,6 @@ export default function MakeButton({
 
     async function handleClickMakeButton() {
         const tableElementText: string = await readClipboardTextOrBlank();
-        console.log(tableElementText);
         const tableElementParseResult = TABLE_ELEMENT_PARSER.parse(tableElementText);
         if (!tableElementParseResult.isSuccess) {
             return handleFailures(tableElementParseResult.failures);

@@ -4,6 +4,7 @@ import Box from "../../../components/box/Box";
 import { BLANK } from "../../../tools/constants";
 import { Table } from "../../../tools/drawio/models/table";
 import KotlinEntityFormatter, { KotlinEntityOption } from "../../../tools/format/KotlinFormatter";
+import "./ClassPreview.scss";
 
 const KOTLIN_ENTITY_FORMATTER = new KotlinEntityFormatter();
 

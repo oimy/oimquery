@@ -1,0 +1,42 @@
+section.kotlin {
+    article.class-preview {
+        div.pre-container {
+            display: flex;
+            justify-content: left;
+            overflow-x: auto;
+
+            &:hover {
+                cursor: pointer;
+                background-color: snow;
+            }
+
+            &:active {
+                background-color: whitesmoke;
+            }
+
+            pre {
+                margin: 0;
+            }
+
+            pre code {
+                line-height: 1.5em;
+                font-size: 1em;
+                font-family: "Ubuntu Mono";
+                background-color: transparent;
+
+                span.hljs-keyword {
+                    font-weight: bold;
+                }
+
+                span.hljs-type {
+                    font-weight: bold;
+                    color: darkslateblue;
+                }
+
+                span.hljs-string {
+                    color: seagreen;
+                }
+            }
+        }
+    }
+}

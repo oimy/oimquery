@@ -1,4 +1,5 @@
 import hljs from "highlight.js/lib/core";
+import kotlin from "highlight.js/lib/languages/kotlin";
 import sql from "highlight.js/lib/languages/sql";
 import "highlight.js/styles/github.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
@@ -15,6 +16,7 @@ import Mysql from "./main/pages/mysql/Mysql";
 import { routeMilestones } from "./routes";
 
 hljs.registerLanguage("sql", sql);
+hljs.registerLanguage("kotlin", kotlin);
 
 function App() {
     return (
