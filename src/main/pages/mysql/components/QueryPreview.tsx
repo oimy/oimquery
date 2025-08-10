@@ -6,13 +6,13 @@ import { BLANK } from "../../../tools/constants";
 import { Table } from "../../../tools/drawio/models/table";
 import MySqlFormatter from "../../../tools/format/MySqlFormatter";
 import { safelyWriteToClipboard } from "../../../utils/clipboard";
-import { MysqlOption, MysqlOptionContext } from "../MysqlOptionContext";
+import { MysqlSetting, MysqlSettingContext } from "../MysqlSettingContext";
 import "./QueryPreview.scss";
 
 const MYSQL_FORMATTER = new MySqlFormatter();
 
 export default function QueryPreview({ table }: { table: Table | undefined }) {
-    const option: MysqlOption = useContext(MysqlOptionContext);
+    const option: MysqlSetting = useContext(MysqlSettingContext);
 
     const query: string = table ? MYSQL_FORMATTER.format(table) : BLANK;
     if (option.isCopyOnGenerate && query !== BLANK) {

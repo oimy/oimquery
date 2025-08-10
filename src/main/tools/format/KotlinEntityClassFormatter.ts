@@ -6,7 +6,7 @@ import { Table } from "../drawio/models/table";
 const DEFAULT_IMPORT_LINES = ["jakarta.persistence.*"];
 const COMPANION_OBJECT_TEXT = "companion object";
 
-export interface KotlinEntityOption {
+export interface KotlinEntityClassOption {
     pluralRemovalCount: number;
     ignoreNames: string[];
     inheritanceClass?: KotlinEntityInheritanceClass;
@@ -22,8 +22,8 @@ export interface KotlinClassProperty {
     dataType: string;
 }
 
-export default class KotlinEntityFormatter {
-    format(table: Table, option: KotlinEntityOption): string {
+export default class KotlinEntityClassFormatter {
+    format(table: Table, option: KotlinEntityClassOption): string {
         const importLines = DEFAULT_IMPORT_LINES;
         const classAnnotationLines = ["Entity"];
         classAnnotationLines.push(`Table(name = "${table.name}")`);

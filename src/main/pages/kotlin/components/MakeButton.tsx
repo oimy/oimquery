@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { toast } from "react-toastify";
 import Column from "../../../components/column/Column";
 import Columns from "../../../components/column/Columns";
@@ -6,23 +7,26 @@ import TableNameConverter from "../../../tools/drawio/converters/element/TableNa
 import Failure from "../../../tools/drawio/Failure";
 import { Table } from "../../../tools/drawio/models/table";
 import SimpleTableElementParser from "../../../tools/drawio/parsers/SimpleTableElementParser";
-import { KotlinEntityOption } from "../../../tools/format/KotlinFormatter";
 import { readClipboardTextOrBlank } from "../../../utils/clipboard";
+import { KotlinSetting, saveKotlinSetting } from "../KotlinSettingContext";
 import "./MakeButton.scss";
+import MakeSettingEditModal from "./modals/MakeSettingEditModal";
 
 const TABLE_ELEMENT_PARSER = new SimpleTableElementParser();
 const TABLE_NAME_CONVERTER = new TableNameConverter();
 const COLUMN_CONVERTER = new ColumnConverter();
 
 export default function MakeButton({
-    setOption,
+    setSetting,
     onGenerate,
     onFail,
 }: {
-    setOption: (option: KotlinEntityOption) => void;
+    setSetting: (setting: KotlinSetting) => void;
     onGenerate: (table: Table) => void;
     onFail: () => void;
 }) {
+    const [modal, setModal] = useState<"edit-setting" | "">("");
+
     function handleFailures(failures: Failure[]) {
         failures.forEach((failure) => {
             toast(failure.message, { type: "error" });
@@ -68,11 +72,20 @@ export default function MakeButton({
                     </button>
                 </Column>
                 <Column className="has-1-8">
-                    <button className="option">
+                    <button className="option" onClick={() => setModal("edit-setting")}>
                         <i className="fa-solid fa-gear" />
                     </button>
                 </Column>
             </Columns>
+            {modal === "edit-setting" && (
+                <MakeSettingEditModal
+                    onChange={(setting) => {
+                        setSetting(setting);
+                        saveKotlinSetting(setting);
+                    }}
+                    onClose={() => setModal("")}
+                />
+            )}
         </article>
     );
 }

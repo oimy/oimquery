@@ -1,10 +1,10 @@
 import { useContext } from "react";
 import Switch from "../../../../components/switch/Switch";
-import { MysqlOption, MysqlOptionContext } from "../../MysqlOptionContext";
+import { MysqlSetting, MysqlSettingContext } from "../../MysqlSettingContext";
 import "./GenerateOptionEditModal.scss";
 
-export default function GenerateOptionEditModal({ onChange }: { onChange: (option: MysqlOption) => void }) {
-    const option: MysqlOption = useContext(MysqlOptionContext);
+export default function GenerateOptionEditModal({ onChange }: { onChange: (option: MysqlSetting) => void }) {
+    const option: MysqlSetting = useContext(MysqlSettingContext);
 
     return (
         <article className="box generate-option-edit-modal">

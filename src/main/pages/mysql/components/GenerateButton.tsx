@@ -8,7 +8,7 @@ import TableNameConverter from "../../../tools/drawio/converters/element/TableNa
 import { Table } from "../../../tools/drawio/models/table";
 import SimpleTableElementParser from "../../../tools/drawio/parsers/SimpleTableElementParser";
 import { readClipboardTextOrBlank } from "../../../utils/clipboard";
-import { MysqlOption, MysqlOptionContext, saveDrawioOption } from "../MysqlOptionContext";
+import { MysqlSetting, MysqlSettingContext, saveMysqlSetting } from "../MysqlSettingContext";
 import "./GenerateButton.scss";
 import GenerateOptionEditModal from "./modals/GenerateOptionEditModal";
 
@@ -21,11 +21,11 @@ export default function GenerateButton({
     onGenerate,
     onFail,
 }: {
-    setOption: (option: MysqlOption) => void;
+    setOption: (option: MysqlSetting) => void;
     onGenerate: (table: Table) => void;
     onFail: () => void;
 }) {
-    const option: MysqlOption = useContext(MysqlOptionContext);
+    const option: MysqlSetting = useContext(MysqlSettingContext);
 
     function handleFailures(failures: Failure[]) {
         failures.forEach((failure) => {
@@ -137,9 +137,9 @@ export default function GenerateButton({
             {modal === "edit-option" && (
                 <Modal onClose={() => setModal("")}>
                     <GenerateOptionEditModal
-                        onChange={(option: MysqlOption) => {
+                        onChange={(option: MysqlSetting) => {
                             setOption(option);
-                            saveDrawioOption(option);
+                            saveMysqlSetting(option);
                         }}
                     />
                 </Modal>

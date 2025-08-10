@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Table } from "../../tools/drawio/models/table";
 import "./Mysql.scss";
-import { loadDrawioOption, MysqlOption, MysqlOptionContext } from "./MysqlOptionContext";
+import { loadMysqlSetting, MysqlSetting, MysqlSettingContext } from "./MysqlSettingContext";
 import GenerateButton from "./components/GenerateButton";
 import QueryPreview from "./components/QueryPreview";
 import QueryStat from "./components/QueryStat";
@@ -11,7 +11,7 @@ export default function Mysql() {
     const [table, setTable] = useState<Table>();
     const [isShowResult, setIsShowResult] = useState<boolean>(false);
 
-    const [option, setOption] = useState<MysqlOption>(loadDrawioOption());
+    const [option, setOption] = useState<MysqlSetting>(loadMysqlSetting());
 
     function renderQuery() {
         if (option.isShowQueryPreview && option.isShowQueryStat) {
@@ -45,7 +45,7 @@ export default function Mysql() {
     }
 
     return (
-        <MysqlOptionContext.Provider value={option}>
+        <MysqlSettingContext.Provider value={option}>
             <section className="container mysql">
                 <GenerateButton
                     setOption={setOption}
@@ -57,6 +57,6 @@ export default function Mysql() {
                 />
                 {renderResults()}
             </section>
-        </MysqlOptionContext.Provider>
+        </MysqlSettingContext.Provider>
     );
 }

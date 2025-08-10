@@ -25,6 +25,12 @@ export default function QueryStat({ table }: { table: Table | undefined }) {
                             <th>Index Keys</th>
                             <td>{Object.keys(table.columnKeyOption.indexKeyIndexAndColumnNameMap).length}</td>
                         </tr>
+                        <tr>
+                            <th>Foreign Keys</th>
+                            <td>
+                                {Object.values(table.columnKeyOption.foreignKeyIndexAndColumnNameMap).flat().length}
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             )}

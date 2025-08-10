@@ -1,0 +1,83 @@
+section.kotlin {
+    article.make-setting-edit-modal {
+        width: 600px;
+        height: 700px;
+
+        .title {
+            text-align: center;
+            margin: 30px;
+            font-size: 1em;
+        }
+
+        .options {
+            .column {
+                text-align: center;
+            }
+
+            button {
+                width: calc(100% - 40px);
+                font-size: 0.9em;
+                font-weight: lighter;
+
+                &.active {
+                    border: 2px solid darkslategray;
+                    font-weight: bold;
+                }
+            }
+        }
+
+        input.name-removal-count {
+            height: 50px;
+            font-size: 1.3em;
+            text-align: center;
+            padding: 0px 50px;
+
+            &[type="number"]::-webkit-inner-spin-button {
+                height: 30px;
+                position: absolute;
+                top: calc(50% - 15px);
+                right: 10px;
+            }
+        }
+
+        table.ignore-name-table {
+            .button {
+                min-width: 40px;
+                min-height: 40px;
+                font-size: 0.8em;
+                border: none;
+            }
+
+            td {
+                p {
+                    text-align: left;
+                    margin: 10px;
+                    padding-left: 10px;
+                }
+            }
+        }
+
+        table.inheritance-column-name-table {
+            width: 200px;
+
+            .button {
+                min-width: 40px;
+                min-height: 30px;
+                font-size: 0.8em;
+                border: none;
+            }
+
+            td {
+                p {
+                    text-align: left;
+                    margin: 10px;
+                    padding-left: 10px;
+                }
+            }
+        }
+
+        button.inheritance {
+            width: 100px;
+        }
+    }
+}
