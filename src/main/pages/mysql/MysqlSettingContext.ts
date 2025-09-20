@@ -6,14 +6,18 @@ export interface MysqlSetting {
     isShowQueryStat: boolean;
     isCopyOnGenerate: boolean;
     isShowClipboardHint: boolean;
+    isAddCreationColumns: boolean;
+    isAddModificationColumns: boolean;
 }
 
-const DEFAULT_MYSQL_SETTING = {
+const DEFAULT_MYSQL_SETTING: MysqlSetting = {
     isShowTablePreview: true,
     isShowQueryPreview: true,
     isShowQueryStat: true,
     isCopyOnGenerate: true,
     isShowClipboardHint: true,
+    isAddCreationColumns: true,
+    isAddModificationColumns: true,
 };
 
 const MYSQL_SETTING_KEY = "MYSQL_SETTING";

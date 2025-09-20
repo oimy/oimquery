@@ -76,6 +76,37 @@ export default function GenerateOptionEditModal({ onChange }: { onChange: (optio
                     }
                 />
             </div>
+            <br />
+            <div className="columns">
+                <div className="column half">
+                    <p className="title">Add Creation Columns</p>
+                    <div style={{ textAlign: "center" }}>
+                        <Switch
+                            checked={option.isAddCreationColumns}
+                            onChange={(value) =>
+                                onChange({
+                                    ...option,
+                                    isAddCreationColumns: value,
+                                })
+                            }
+                        />
+                    </div>
+                </div>
+                <div className="column half">
+                    <p className="title">Add Modification Columns</p>
+                    <div style={{ textAlign: "center" }}>
+                        <Switch
+                            checked={option.isAddModificationColumns}
+                            onChange={(value) =>
+                                onChange({
+                                    ...option,
+                                    isAddModificationColumns: value,
+                                })
+                            }
+                        />
+                    </div>
+                </div>
+            </div>
         </article>
     );
 }

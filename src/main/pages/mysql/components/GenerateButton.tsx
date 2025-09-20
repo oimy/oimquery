@@ -5,6 +5,7 @@ import Tooltip from "../../../components/tooltip/Tooltip";
 import Failure from "../../../tools/drawio/Failure";
 import ColumnConverter from "../../../tools/drawio/converters/element/ColumnConverter";
 import TableNameConverter from "../../../tools/drawio/converters/element/TableNameConverter";
+import { Column } from "../../../tools/drawio/models/column";
 import { Table } from "../../../tools/drawio/models/table";
 import SimpleTableElementParser from "../../../tools/drawio/parsers/SimpleTableElementParser";
 import { readClipboardTextOrBlank } from "../../../utils/clipboard";
@@ -15,6 +16,40 @@ import GenerateOptionEditModal from "./modals/GenerateOptionEditModal";
 const TABLE_ELEMENT_PARSER = new SimpleTableElementParser();
 const TABLE_NAME_CONVERTER = new TableNameConverter();
 const COLUMN_CONVERTER = new ColumnConverter();
+
+const DEFAULT_CREATION_COLUMNS: Column[] = [
+    {
+        name: "createdBy",
+        dataType: "nvarchar(20)",
+        isNullable: false,
+        comment: "who created",
+        sequence: 10001,
+    },
+    {
+        name: "createdAt",
+        dataType: "datetime(6)",
+        isNullable: false,
+        comment: "who created",
+        sequence: 10002,
+    },
+];
+
+const DEFAULT_MODIFICATION_COLUMNS: Column[] = [
+    {
+        name: "modifiedBy",
+        dataType: "nvarchar(20)",
+        isNullable: false,
+        comment: "who modified",
+        sequence: 10003,
+    },
+    {
+        name: "modifiedAt",
+        dataType: "datetime(6)",
+        isNullable: false,
+        comment: "who modified",
+        sequence: 10004,
+    },
+];
 
 export default function GenerateButton({
     setOption,
@@ -48,6 +83,13 @@ export default function GenerateButton({
         const columnConvertResult = COLUMN_CONVERTER.convert(tableElementParseResult.rows);
         if (!columnConvertResult.isSuccess) {
             return handleFailures(columnConvertResult.failures);
+        }
+
+        if (option.isAddCreationColumns) {
+            columnConvertResult.columns.push(...DEFAULT_CREATION_COLUMNS);
+        }
+        if (option.isAddCreationColumns) {
+            columnConvertResult.columns.push(...DEFAULT_MODIFICATION_COLUMNS);
         }
 
         onGenerate({
