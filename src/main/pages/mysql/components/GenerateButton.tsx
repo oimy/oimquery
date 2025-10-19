@@ -20,7 +20,7 @@ const COLUMN_CONVERTER = new ColumnConverter();
 const DEFAULT_CREATION_COLUMNS: Column[] = [
     {
         name: "createdBy",
-        dataType: "nvarchar(20)",
+        dataType: "varchar(20)",
         isNullable: false,
         comment: "who created",
         sequence: 10001,
@@ -29,7 +29,7 @@ const DEFAULT_CREATION_COLUMNS: Column[] = [
         name: "createdAt",
         dataType: "datetime(6)",
         isNullable: false,
-        comment: "who created",
+        comment: "when created",
         sequence: 10002,
     },
 ];
@@ -37,7 +37,7 @@ const DEFAULT_CREATION_COLUMNS: Column[] = [
 const DEFAULT_MODIFICATION_COLUMNS: Column[] = [
     {
         name: "modifiedBy",
-        dataType: "nvarchar(20)",
+        dataType: "varchar(20)",
         isNullable: false,
         comment: "who modified",
         sequence: 10003,
@@ -46,7 +46,7 @@ const DEFAULT_MODIFICATION_COLUMNS: Column[] = [
         name: "modifiedAt",
         dataType: "datetime(6)",
         isNullable: false,
-        comment: "who modified",
+        comment: "when modified",
         sequence: 10004,
     },
 ];
